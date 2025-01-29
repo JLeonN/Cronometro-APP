@@ -1,4 +1,5 @@
 import { Image, StyleSheet, Platform } from 'react-native';
+import { Ionicons, FontAwesome } from '@expo/vector-icons';
 
 import { HelloWave } from '@/components/HelloWave';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
@@ -15,12 +16,14 @@ export default function HomeScreen() {
           style={styles.reactLogo}
         />
       }>
+      
       <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
+        <ThemedText type="title">Hola!</ThemedText>
         <HelloWave />
       </ThemedView>
+
       <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
+        <ThemedText type="subtitle">Soy el 1:</ThemedText>
         <ThemedText>
           Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
           Press{' '}
@@ -34,12 +37,18 @@ export default function HomeScreen() {
           to open developer tools.
         </ThemedText>
       </ThemedView>
+
+      {/* Aquí están los iconos */}
       <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          Tap the Explore tab to learn more about what's included in this starter app.
-        </ThemedText>
+        <ThemedText type="subtitle">🎨 Iconos</ThemedText>
+        <ThemedView style={styles.iconContainer}>
+          <FontAwesome name="play" size={32} color="green" />
+          <FontAwesome name="pause" size={32} color="blue" />
+          <FontAwesome name="stop" size={32} color="red" />
+          <Ionicons name="flag" size={32} color="orange" />
+        </ThemedView>
       </ThemedView>
+
       <ThemedView style={styles.stepContainer}>
         <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
         <ThemedText>
@@ -50,6 +59,7 @@ export default function HomeScreen() {
           <ThemedText type="defaultSemiBold">app-example</ThemedText>.
         </ThemedText>
       </ThemedView>
+
     </ParallaxScrollView>
   );
 }
@@ -63,6 +73,10 @@ const styles = StyleSheet.create({
   stepContainer: {
     gap: 8,
     marginBottom: 8,
+  },
+  iconContainer: {
+    flexDirection: 'row',
+    gap: 16, // Espaciado entre iconos
   },
   reactLogo: {
     height: 178,
