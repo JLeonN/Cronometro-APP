@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, ActivityIndicator } from "react-native";
 import { useFonts } from "expo-font";
-import { estilosGlobales } from "./styles"; // Importamos los estilos globales
-import Prueba from "@/components/Cronometro/Prueba";
+import { estilosGlobales } from "./styles";
+import Cronometro from "@/components/Cronometro/Cronometro";
 
 export default function App() {
   // Cargar las fuentes personalizadas
@@ -32,9 +32,7 @@ export default function App() {
 
   return (
     <View style={estilosGlobales.contenedor}>
-      <Text style={estilosGlobales.titulo}>Hola mundo!!!</Text>
-      <Text style={estilosGlobales.texto}>Prueba de fuentes.</Text>
-      <Prueba />
+      <Cronometro />
     </View>
   );
 }
