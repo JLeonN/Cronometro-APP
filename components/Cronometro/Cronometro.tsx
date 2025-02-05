@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { View, Text, TouchableOpacity, FlatList } from "react-native";
 import { AntDesign, FontAwesome5, Entypo } from "@expo/vector-icons";
 import estilos from "../../app/(tabs)/EstilosCronometro";
@@ -7,19 +7,30 @@ export default function Cronometro() {
   // Estado para manejar el tiempo transcurrido
   const [tiempo, setTiempo] = useState(0);
   const [enMarcha, setEnMarcha] = useState(false);
-  const [marcas, setMarcas] = useState([]); // Lista de marcas registradas
+  const [marcas, setMarcas] = useState<
+    { id: string; tiempoActual: number; diferencia: number }[]
+  >([]);
+
+  // useRef para manejar el intervalo sin errores de tipo
+  const intervalo = useRef<NodeJS.Timeout | null>(null);
 
   // Efecto para manejar el intervalo del cronómetro
   useEffect(() => {
-    let intervalo: NodeJS.Timeout | null = null;
     if (enMarcha) {
-      intervalo = setInterval(() => {
+      intervalo.current = setInterval(() => {
         setTiempo((prevTiempo) => prevTiempo + 10);
       }, 10);
     } else if (!enMarcha && tiempo !== 0) {
-      clearInterval(intervalo as NodeJS.Timeout);
+      if (intervalo.current) {
+        clearInterval(intervalo.current);
+      }
     }
-    return () => clearInterval(intervalo as NodeJS.Timeout);
+
+    return () => {
+      if (intervalo.current) {
+        clearInterval(intervalo.current);
+      }
+    };
   }, [enMarcha]);
 
   // Función para iniciar/pausar el cronómetro
