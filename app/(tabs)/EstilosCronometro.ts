@@ -7,17 +7,19 @@ export default StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: COLORES.fondoPrincipal,
-    padding: 20,
+    padding: 30,
+    paddingHorizontal: 10,
+    width: "100%",
   },
   subTitulo: {
-    fontSize: 24, // Aumentamos un poco el tamaño
+    fontSize: 24,
     fontWeight: "bold",
     color: COLORES.opcion4,
     textTransform: "uppercase",
     marginBottom: 10,
   },
   pantallaTiempo: {
-    fontSize: 40, // Tamaño más grande como en la versión web
+    fontSize: 40,
     fontWeight: "bold",
     color: COLORES.textoGeneral,
     marginVertical: 20,
@@ -26,48 +28,47 @@ export default StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     marginBottom: 20,
-    gap: 15, // Espaciado entre botones (React Native 0.71+)
+    gap: 15,
   },
   boton: {
     backgroundColor: COLORES.botonPrimario,
-    paddingVertical: 15, // Más alto
-    paddingHorizontal: 75, // Más ancho
-    borderRadius: 8, // Bordes más redondeados
+    paddingVertical: 15,
+    paddingHorizontal: 75,
+    borderRadius: 8,
     alignItems: "center",
   },
   marca: {
     flexDirection: "row",
+    justifyContent: "space-between",
     alignItems: "center",
-    backgroundColor: "#1E3A47", // Azul oscuro similar al de la derecha
+    backgroundColor: "#1E3A47",
     paddingVertical: 12,
-    paddingHorizontal: 16,
+    paddingHorizontal: 15,
     borderRadius: 10,
-    marginVertical: 6, // Espaciado entre marcas
-    width: "150%", // Ocupará casi toda la pantalla
-    maxWidth: 800, // Limita el ancho en pantallas grandes
-    // alignSelf: "center",
+    marginVertical: 6,
+    width: "100%",
   },
   numeroRedondo: {
-    width: 35, // Más grande
+    width: 35,
     height: 35,
     borderRadius: 18,
-    backgroundColor: "#2ECC71", // Verde más claro
-    color: "#fff", // Texto en blanco
+    backgroundColor: "#2ECC71",
+    color: "#fff",
     fontSize: 16,
     fontWeight: "bold",
     textAlign: "center",
-    lineHeight: 36, // Centrado perfecto dentro del círculo
+    lineHeight: 36,
     marginRight: 12,
   },
   tiempoMarca: {
-    fontSize: 18, // Más grande para coincidir con la versión web
+    fontSize: 18,
     fontWeight: "bold",
-    color: "#FFFFFF", // Blanco para mejor visibilidad
-    flex: 1, // Ocupa todo el espacio disponible
+    color: "#FFFFFF",
+    flex: 1,
   },
   diferencia: {
     fontSize: 16,
-    color: "#58A6FF", // Azul más claro para coincidir con la versión web
+    color: "#58A6FF",
     marginLeft: 12,
   },
 });
