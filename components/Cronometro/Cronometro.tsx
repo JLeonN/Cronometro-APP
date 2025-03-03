@@ -2,17 +2,19 @@ import React, { useState, useEffect, useRef } from "react";
 import { View, Text, TouchableOpacity, FlatList } from "react-native";
 import { AntDesign, FontAwesome5, Entypo } from "@expo/vector-icons";
 import estilos from "../../app/(tabs)/EstilosCronometro";
-import BannerInferior from "@/components/ui/BannerInferior";
 
 export default function Cronometro() {
+  // Estado para manejar el tiempo transcurrido
   const [tiempo, setTiempo] = useState(0);
   const [enMarcha, setEnMarcha] = useState(false);
   const [marcas, setMarcas] = useState<
     { id: string; tiempoActual: number; diferencia: number }[]
   >([]);
 
+  // useRef para manejar el intervalo sin errores de tipo
   const intervalo = useRef<NodeJS.Timeout | null>(null);
 
+  // Efecto para manejar el intervalo del cronómetro
   useEffect(() => {
     if (enMarcha) {
       intervalo.current = setInterval(() => {
@@ -31,12 +33,15 @@ export default function Cronometro() {
     };
   }, [enMarcha]);
 
+  // Función para iniciar/pausar el cronómetro
   const manejarInicioPausa = () => {
     setEnMarcha(!enMarcha);
   };
 
+  // Función para marcar el tiempo actual o reiniciar el cronómetro
   const manejarMarcarReiniciar = () => {
     if (enMarcha) {
+      // Registra una marca de tiempo
       const nuevaMarca = {
         id: `${marcas.length}`,
         tiempoActual: tiempo,
@@ -45,11 +50,13 @@ export default function Cronometro() {
       };
       setMarcas((prevMarcas) => [nuevaMarca, ...prevMarcas]);
     } else {
+      // Reinicia el cronómetro
       setTiempo(0);
       setMarcas([]);
     }
   };
 
+  // Formatear el tiempo en mm:ss:ms
   const formatearTiempo = (tiempo: number) => {
     const minutos = Math.floor(tiempo / 60000);
     const segundos = Math.floor((tiempo % 60000) / 1000);
@@ -61,53 +68,47 @@ export default function Cronometro() {
   };
 
   return (
-    <View style={{ flex: 1 }}>  
-      {/* Cronómetro */}
-      <View style={estilos.contenedorCronometro}>
-        <Text style={estilos.subTitulo}>Cronómetro</Text>
+    <View style={estilos.contenedorCronometro}>
+      <Text style={estilos.subTitulo}>Cronómetro</Text>
 
-        <Text style={estilos.pantallaTiempo}>{formatearTiempo(tiempo)}</Text>
+      <Text style={estilos.pantallaTiempo}>{formatearTiempo(tiempo)}</Text>
 
-        <View style={estilos.botones}>
-          <TouchableOpacity style={estilos.boton} onPress={manejarInicioPausa}>
-            {enMarcha ? (
-              <FontAwesome5 name="pause" size={24} color="white" />
-            ) : (
-              <AntDesign name="play" size={24} color="white" />
-            )}
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            style={estilos.boton}
-            onPress={manejarMarcarReiniciar}
-          >
-            {enMarcha ? (
-              <Entypo name="flag" size={24} color="white" />
-            ) : (
-              <FontAwesome5 name="stop" size={24} color="white" />
-            )}
-          </TouchableOpacity>
-        </View>
-
-        <FlatList
-          data={marcas}
-          keyExtractor={(item) => item.id}
-          renderItem={({ item, index }) => (
-            <View style={estilos.marca}>
-              <Text style={estilos.numeroRedondo}>{marcas.length - index}</Text>
-              <Text style={estilos.tiempoMarca}>
-                {formatearTiempo(item.tiempoActual)}
-              </Text>
-              <Text style={estilos.diferencia}>
-                {formatearTiempo(item.diferencia)}
-              </Text>
-            </View>
+      <View style={estilos.botones}>
+        <TouchableOpacity style={estilos.boton} onPress={manejarInicioPausa}>
+          {enMarcha ? (
+            <FontAwesome5 name="pause" size={24} color="white" />
+          ) : (
+            <AntDesign name="play" size={24} color="white" />
           )}
-        />
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={estilos.boton}
+          onPress={manejarMarcarReiniciar}
+        >
+          {enMarcha ? (
+            <Entypo name="flag" size={24} color="white" />
+          ) : (
+            <FontAwesome5 name="stop" size={24} color="white" />
+          )}
+        </TouchableOpacity>
       </View>
 
-      {/* Anuncio Banner */}
-      <BannerInferior />
+      <FlatList
+        data={marcas}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item, index }) => (
+          <View style={estilos.marca}>
+            <Text style={estilos.numeroRedondo}>{marcas.length - index}</Text>
+            <Text style={estilos.tiempoMarca}>
+              {formatearTiempo(item.tiempoActual)}
+            </Text>
+            <Text style={estilos.diferencia}>
+              {formatearTiempo(item.diferencia)}
+            </Text>
+          </View>
+        )}
+      />
     </View>
   );
 }
