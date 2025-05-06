@@ -8,8 +8,7 @@ import { IconSymbol } from "@/components/ui/IconSymbol";
 import TabBarBackground from "@/components/ui/TabBarBackground";
 import { Colors } from "@/constants/Colors";
 import { useColorScheme } from "@/hooks/useColorScheme";
-
-// import BannerAdComponent from "@/components/BannerAdComponent"; // Importamos el componente del banner
+import BannerAdComponent from "./Banner";
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
@@ -56,7 +55,7 @@ export default function TabLayout() {
       </Tabs>
 
       {/* Banner publicitario en la parte inferior */}
-      {/* <BannerAdComponent /> */}
+      <BannerAdComponent />
     </View>
   );
 }
