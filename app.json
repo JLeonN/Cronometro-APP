@@ -33,7 +33,8 @@
           "resizeMode": "contain",
           "backgroundColor": "#ffffff"
         }
-      ]
+      ],
+      "react-native-google-mobile-ads"
     ],
     "experiments": {
       "typedRoutes": true
