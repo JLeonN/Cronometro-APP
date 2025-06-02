@@ -10,7 +10,7 @@ import * as Device from "expo-device";
 const adUnitId = __DEV__
   ? TestIds.BANNER
   : Device.osName === "Android"
-  ? "ca-app-pub-3940256099942544/6300978111"
+  ? "ca-app-pub-7620083100302566/1361947462"
   : "TU_ID_DE_BANNER_IOS";
 
 const BannerAdComponent = () => {
@@ -42,3 +42,6 @@ const styles = StyleSheet.create({
 });
 
 export default BannerAdComponent;
+
+// ID = "ca-app-pub-7620083100302566/1361947462" El bueno
+// ID = "ca-app-pub-3940256099942544/6300978111" Prueba
