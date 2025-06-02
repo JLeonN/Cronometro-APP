@@ -1,70 +1,57 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, TouchableOpacity, FlatList } from "react-native";
 import { AntDesign, FontAwesome5, Entypo } from "@expo/vector-icons";
+import BackgroundTimer from "react-native-background-timer";
 import estilos from "../../app/(tabs)/EstilosCronometro";
 
 export default function Cronometro() {
-  // Estado para manejar el tiempo transcurrido
   const [tiempo, setTiempo] = useState(0);
   const [enMarcha, setEnMarcha] = useState(false);
   const [marcas, setMarcas] = useState<
     { id: string; tiempoActual: number; diferencia: number }[]
   >([]);
 
-  // useRef para manejar el intervalo sin errores de tipo
-  const intervalo = useRef<NodeJS.Timeout | null>(null);
-
-  // Efecto para manejar el intervalo del cronómetro
   useEffect(() => {
     if (enMarcha) {
-      intervalo.current = setInterval(() => {
-        setTiempo((prevTiempo) => prevTiempo + 10);
+      BackgroundTimer.runBackgroundTimer(() => {
+        setTiempo((anterior) => anterior + 10);
       }, 10);
-    } else if (!enMarcha && tiempo !== 0) {
-      if (intervalo.current) {
-        clearInterval(intervalo.current);
-      }
+    } else {
+      BackgroundTimer.stopBackgroundTimer();
     }
 
     return () => {
-      if (intervalo.current) {
-        clearInterval(intervalo.current);
-      }
+      BackgroundTimer.stopBackgroundTimer();
     };
   }, [enMarcha]);
 
-  // Función para iniciar/pausar el cronómetro
-  const manejarInicioPausa = () => {
-    setEnMarcha(!enMarcha);
+  const alternarInicioPausa = () => {
+    setEnMarcha((estadoActual) => !estadoActual);
   };
 
-  // Función para marcar el tiempo actual o reiniciar el cronómetro
-  const manejarMarcarReiniciar = () => {
+  const manejarMarcaReinicio = () => {
     if (enMarcha) {
-      // Registra una marca de tiempo
       const nuevaMarca = {
-        id: `${marcas.length}`,
+        id: `${Date.now()}`, // Evita duplicados
         tiempoActual: tiempo,
-        diferencia:
-          marcas.length > 0 ? tiempo - marcas[0].tiempoActual : tiempo,
+        diferencia: marcas.length > 0
+          ? tiempo - marcas[0].tiempoActual
+          : tiempo,
       };
-      setMarcas((prevMarcas) => [nuevaMarca, ...prevMarcas]);
+      setMarcas((anteriores) => [nuevaMarca, ...anteriores]);
     } else {
-      // Reinicia el cronómetro
       setTiempo(0);
       setMarcas([]);
     }
   };
 
-  // Formatear el tiempo en mm:ss:ms
-  const formatearTiempo = (tiempo: number) => {
-    const minutos = Math.floor(tiempo / 60000);
-    const segundos = Math.floor((tiempo % 60000) / 1000);
-    const milisegundos = Math.floor((tiempo % 1000) / 10);
-
+  const formatearTiempo = (milisegundos: number) => {
+    const minutos = Math.floor(milisegundos / 60000);
+    const segundos = Math.floor((milisegundos % 60000) / 1000);
+    const decimas = Math.floor((milisegundos % 1000) / 10);
     return `${minutos.toString().padStart(2, "0")}:${segundos
       .toString()
-      .padStart(2, "0")}.${milisegundos.toString().padStart(2, "0")}`;
+      .padStart(2, "0")}.${decimas.toString().padStart(2, "0")}`;
   };
 
   return (
@@ -74,7 +61,7 @@ export default function Cronometro() {
       <Text style={estilos.pantallaTiempo}>{formatearTiempo(tiempo)}</Text>
 
       <View style={estilos.botones}>
-        <TouchableOpacity style={estilos.boton} onPress={manejarInicioPausa}>
+        <TouchableOpacity style={estilos.boton} onPress={alternarInicioPausa}>
           {enMarcha ? (
             <FontAwesome5 name="pause" size={24} color="white" />
           ) : (
@@ -82,10 +69,7 @@ export default function Cronometro() {
           )}
         </TouchableOpacity>
 
-        <TouchableOpacity
-          style={estilos.boton}
-          onPress={manejarMarcarReiniciar}
-        >
+        <TouchableOpacity style={estilos.boton} onPress={manejarMarcaReinicio}>
           {enMarcha ? (
             <Entypo name="flag" size={24} color="white" />
           ) : (
@@ -96,10 +80,12 @@ export default function Cronometro() {
 
       <FlatList
         data={marcas}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(marca) => marca.id}
         renderItem={({ item, index }) => (
           <View style={estilos.marca}>
-            <Text style={estilos.numeroRedondo}>{marcas.length - index}</Text>
+            <Text style={estilos.numeroRedondo}>
+              {marcas.length - index}
+            </Text>
             <Text style={estilos.tiempoMarca}>
               {formatearTiempo(item.tiempoActual)}
             </Text>

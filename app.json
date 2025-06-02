@@ -2,9 +2,9 @@
   "expo": {
     "name": "Cronómetro",
     "slug": "Nombre-de-mi-proyecto",
-    "version": "1.0.0",
+    "version": "2.0.1",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/images/iconNuevo.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
@@ -13,27 +13,31 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/icon.png",
+        "foregroundImage": "./assets/images/iconNuevo.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.yojorge.Nombredemiproyecto"
+      "package": "com.yojorge.Nombredemiproyecto",
+      "permissions": [
+        "com.google.android.gms.permission.AD_ID"
+      ]
     },
     "web": {
       "bundler": "metro",
       "output": "static",
-      "favicon": "./assets/images/favicon.png"
+      "favicon": "./assets/images/faviconNuevo.png"
     },
     "plugins": [
       "expo-router",
       [
         "expo-splash-screen",
         {
-          "image": "./assets/images/splash-icon.png",
+          "image": "./assets/images/splash-iconNuevo.png",
           "imageWidth": 200,
           "resizeMode": "contain",
           "backgroundColor": "#ffffff"
         }
-      ]
+      ],
+      "react-native-google-mobile-ads"
     ],
     "experiments": {
       "typedRoutes": true
@@ -47,5 +51,9 @@
       }
     },
     "owner": "yojorge"
+  },
+  "react-native-google-mobile-ads": {
+    "android_app_id": "ca-app-pub-7620083100302566~2103393503",
+    "ios_app_id": "ca-app-pub-3940256099942544~1458002511"
   }
 }
