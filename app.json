@@ -2,14 +2,17 @@
   "expo": {
     "name": "Cronómetro",
     "slug": "Nombre-de-mi-proyecto",
-    "version": "2.0.1",
+    "version": "2.0.2",
     "orientation": "portrait",
     "icon": "./assets/images/iconNuevo.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "config": {
+        "googleMobileAdsAppId": "ca-app-pub-3940256099942544~1458002511"
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -17,9 +20,13 @@
         "backgroundColor": "#ffffff"
       },
       "package": "com.yojorge.Nombredemiproyecto",
-      "permissions": [
-        "com.google.android.gms.permission.AD_ID"
-      ]
+      "permissions": ["com.google.android.gms.permission.AD_ID"],
+      "config": {
+        "googleMobileAds": {
+          "androidAppId": "ca-app-pub-7620083100302566~2103393503"
+        }
+      },
+      "targetSdkVersion": 35
     },
     "web": {
       "bundler": "metro",
@@ -34,7 +41,7 @@
           "image": "./assets/images/splash-iconNuevo.png",
           "imageWidth": 200,
           "resizeMode": "contain",
-          "backgroundColor": "#ffffff"
+          "backgroundColor": "#000000"
         }
       ],
       "react-native-google-mobile-ads"
@@ -51,9 +58,5 @@
       }
     },
     "owner": "yojorge"
-  },
-  "react-native-google-mobile-ads": {
-    "android_app_id": "ca-app-pub-7620083100302566~2103393503",
-    "ios_app_id": "ca-app-pub-3940256099942544~1458002511"
   }
 }
