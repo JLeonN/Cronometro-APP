@@ -1,0 +1,27 @@
+https://support.google.com/googleplay/android-developer/answer/6048248
+
+ID de publicidad
+El ID de publicidad es un ID único que proporcionan los Servicios de Google Play y que el usuario puede restablecer y borrar. Les ofrece mejores controles a los usuarios y un sistema simple y estándar a los desarrolladores para que continúen monetizando sus apps. Permite que los usuarios restablezcan o borren su identificador.
+
+Actualización de los Servicios de Google Play en 2021
+Como parte de la actualización de los Servicios de Google Play realizada a fines de 2021, el ID de publicidad se quitará cuando un usuario lo borre en la configuración de Android. Cuando se intente acceder al identificador, en su lugar se recibirá una cadena de ceros.
+
+Este lanzamiento en etapas de los Servicios de Google Play afectará a las apps que se ejecuten en Android 12 desde fines de 2021 y, a partir del 1 de abril de 2022, se expandirá para aplicarse a las apps que se ejecuten en todos los dispositivos compatibles con Google Play. Para casos de uso esenciales que no incluyan anuncios, como las estadísticas y la prevención de fraudes, usa el ID del conjunto de apps.
+
+Además, cuando las apps actualicen su objetivo a Android 13 o versiones posteriores, deberán declarar un permiso normal de los Servicios de Google Play en el archivo de manifiesto de la siguiente manera:
+
+<uses-permission android:name="com.google.android.gms.permission.AD_ID"/>
+
+Es posible que algunos SDK, como el SDK de anuncios de Google para dispositivos móviles (play-services-ads), ya declaren este permiso en el manifiesto de la biblioteca del SDK. Si tu app usa estos SDK como dependencias, el permiso AD_ID del manifiesto de la biblioteca del SDK se combinará de forma predeterminada con el manifiesto principal de la app, incluso si no declaras explícitamente el permiso en el manifiesto principal de la app. Obtén más información para combinar archivos de manifiesto en el sitio Android Developers.
+
+A partir del 1 de abril de 2022, se aplicará este permiso en todos los dispositivos. Para obtener más detalles, consulta la documentación de la API.
+
+Obtén más información sobre las prácticas recomendadas asociadas con identificadores únicos.
+
+Obtén el ID de publicidad
+Para obtener el ID de publicidad en tus apps, puedes usar la API de Advertising ID.
+
+Requisitos de la política
+La Política del Programa para Desarrolladores de Google Play exige que, con fines publicitarios, todas las actualizaciones y apps nuevas que se suban a Google Play usen el ID de publicidad (si está disponible) en lugar de cualquier otro identificador de dispositivo. Deberás asegurarte de que tus apps cumplan con todas las políticas de Play y aquellas relacionadas con el uso.
+
+Es posible que las apps que usen un ID persistente distinto del ID de publicidad reciban una advertencia de incumplimiento de política a través del sitio del publicador o de la dirección de correo electrónico que se usó para registrar la cuenta. Si recibes una advertencia, debes asegurarte de que cualquier APK publicado cumpla lo establecido en la Política del Programa para Desarrolladores en lo que respecta al ID de publicidad. Si usas un SDK de anuncio de terceros, comunícate con su creador para obtener una versión que cumpla con esta nueva política.
