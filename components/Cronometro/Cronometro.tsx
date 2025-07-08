@@ -34,9 +34,8 @@ export default function Cronometro() {
       const nuevaMarca = {
         id: `${Date.now()}`, // Evita duplicados
         tiempoActual: tiempo,
-        diferencia: marcas.length > 0
-          ? tiempo - marcas[0].tiempoActual
-          : tiempo,
+        diferencia:
+          marcas.length > 0 ? tiempo - marcas[0].tiempoActual : tiempo,
       };
       setMarcas((anteriores) => [nuevaMarca, ...anteriores]);
     } else {
@@ -83,9 +82,7 @@ export default function Cronometro() {
         keyExtractor={(marca) => marca.id}
         renderItem={({ item, index }) => (
           <View style={estilos.marca}>
-            <Text style={estilos.numeroRedondo}>
-              {marcas.length - index}
-            </Text>
+            <Text style={estilos.numeroRedondo}>{marcas.length - index}</Text>
             <Text style={estilos.tiempoMarca}>
               {formatearTiempo(item.tiempoActual)}
             </Text>
